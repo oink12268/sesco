@@ -1,5 +1,6 @@
 package com.eggplant.sesco.presentation.config;
 
+import com.eggplant.sesco.presentation.config.security.CustomAuthenticationEntryPoint;
 import com.eggplant.sesco.presentation.config.security.SecurityAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +15,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private CustomAuthenticationEntryPoint authenticationEntryPoint;
+
     @Bean
     public SecurityAuthenticationFilter securityAuthenticationFilter() {
+
         return new SecurityAuthenticationFilter();
     }
 
@@ -26,6 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()

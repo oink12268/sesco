@@ -1,12 +1,14 @@
 package com.eggplant.sesco.application.admin;
 
+import com.eggplant.sesco.presentation.config.security.UserDetailsVo;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TestService {
 
-    public String getTest() {
-        return "hello";
+    public UserDetailsVo getTest() {
+
+        return new UserDetailsVo();
     }
 
     public String getTest2() {

@@ -20,7 +20,9 @@ public class SecurityAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        UserDetails authentication = customUserDetailsService.loadUserByUsername("test");
+        String username = request.getRequestURI().contains("/auth") ? "test10" : "test";
+
+        UserDetails authentication = customUserDetailsService.loadUserByUsername(username);
 
         UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(authentication.getUsername(), null, null);
 
