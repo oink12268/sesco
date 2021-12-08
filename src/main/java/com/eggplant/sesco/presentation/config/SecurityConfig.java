@@ -1,5 +1,6 @@
 package com.eggplant.sesco.presentation.config;
 
+import com.eggplant.sesco.presentation.config.security.CustomAccessDeniedHandler;
 import com.eggplant.sesco.presentation.config.security.CustomAuthenticationEntryPoint;
 import com.eggplant.sesco.presentation.config.security.SecurityAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +16,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
 
     @Bean
     public SecurityAuthenticationFilter securityAuthenticationFilter() {
@@ -32,12 +34,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(authenticationEntryPoint)
+                .authenticationEntryPoint(customAuthenticationEntryPoint)
+                .accessDeniedHandler(customAccessDeniedHandler)
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/api/v1/test/permit-all").permitAll()
-                .antMatchers("/api/v1/test/auth").authenticated()
+                .antMatchers("/api/v1/test/auth").hasRole("AUTH")
                 .antMatchers("/**").authenticated()
                 .anyRequest().permitAll()
                 .and()

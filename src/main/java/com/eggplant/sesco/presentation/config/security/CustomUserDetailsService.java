@@ -5,18 +5,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     private UserDetailsVo userDetailsVo;
 
     @Override
-    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-        System.out.println("Get authorization");
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-//        if(loginId == userDetailsVo.getUsername())
-//            return new UserDetailsVo();
-//        else
-            throw new UsernameNotFoundException("해당 유저를 찾을 수 없습니다");
+        if(!s.equals("test")) throw new UsernameNotFoundException("해당 유저가 존재하지 않습니다.");
+
+        return new UserDetailsVo(s, Arrays.asList("ROLE_AUTH"));
     }
 }

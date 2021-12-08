@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestService {
 
-    public UserDetailsVo getTest() {
+    public String getTest() {
 
-        return new UserDetailsVo();
+        return "hello";
     }
 
     public String getTest2() {
