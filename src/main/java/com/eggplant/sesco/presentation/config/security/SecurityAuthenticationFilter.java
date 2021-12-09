@@ -25,9 +25,7 @@ public class SecurityAuthenticationFilter extends OncePerRequestFilter {
         String username = "test";
         UserDetails userDetailsVo = customUserDetailsService.loadUserByUsername(username);
 
-        Collection<? extends GrantedAuthority> authorities = userDetailsVo.getAuthorities();
-
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetailsVo.getUsername(), null, authorities);
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetailsVo, "test", userDetailsVo.getAuthorities());
 
         SecurityContextHolder.getContext().setAuthentication(auth);
         filterChain.doFilter(request, response);
