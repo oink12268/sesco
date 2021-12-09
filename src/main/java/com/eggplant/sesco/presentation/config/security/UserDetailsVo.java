@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class UserDetailsVo implements UserDetails {
 
     private String username;
-    private Collection<? extends  GrantedAuthority> authorities;
+    private Collection<? extends  GrantedAuthority> authorities; // test
 
     @Override
     public String getUsername() {
